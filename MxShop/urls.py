@@ -71,7 +71,7 @@ urlpatterns = [
     url(r'^alipay/return/', AlipayView.as_view(),name="alipay"),
 
     #第三方登录url
-    url(r'', include('social_django.url',namespace='social')),
+    #url(r'', include('social_django.url',namespace='social')),
 
 
 ]
