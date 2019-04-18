@@ -216,4 +216,4 @@ SOCIAL_AUTH_WEIXIN_SECRET = 'bazqux'
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/index/'
 
-#we
+#weyutyi
