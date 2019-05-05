@@ -84,7 +84,7 @@ class UserViewset(CreateModelMixin,RetrieveModelMixin,UpdateModelMixin,viewsets.
       用户
       """
     queryset = User.objects.all()
-    authentication_classes = (JSONWebTokenAuthentication,authentication.SessionAuthentication,)
+    authentication_classes = (JSONWebTokenAuthentication,authentication.SessionAuthentication)
 
     def get_serializer_class(self):
         if self.action == "retrieve":

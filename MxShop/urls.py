@@ -55,7 +55,7 @@ goods_list = GoodsListViewSet.as_view({
     'get': 'list',
 })
 
-from trade.views import AlipayView
+#from trade.views import AlipayView
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls',namespace="rest_framework")),
@@ -68,7 +68,7 @@ urlpatterns = [
     #jwt的认证接口
     #url(r'^jwt_auth/', obtain_jwt_token),
     url(r'^login/$', obtain_jwt_token),
-    url(r'^alipay/return/', AlipayView.as_view(),name="alipay"),
+    #url(r'^alipay/return/', AlipayView.as_view(),name="alipay"),
 
     #第三方登录url
     #url(r'', include('social_django.url',namespace='social')),

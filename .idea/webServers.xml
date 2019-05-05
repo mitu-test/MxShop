@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="2a09a239-45d2-429b-8949-ad5ad31ecd19" name="mxshop" url="http://148.70.221.132">
-        <fileTransfer host="148.70.221.132" port="22" accessType="SFTP">
+        <fileTransfer host="148.70.221.132" port="22" rootFolder="/root" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>

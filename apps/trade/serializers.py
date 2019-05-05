@@ -1,10 +1,10 @@
 import time
 from rest_framework import serializers
 from goods.models import Goods
-from .models import ShoppingCart, OrderInfo,OrderGoods
+from .models import ShoppingCart,OrderInfo,OrderGoods
 from goods.serializers import GoodsSerializer
-from utils.alipay import AliPay
-from MxShop.settings import private_key_path, ali_pub_key_path
+# from utils.alipay import AliPay
+# from MxShop.settings import private_key_path, ali_pub_key_path
 
 
 class ShopCartDetailSerializer(serializers.ModelSerializer):
@@ -59,30 +59,27 @@ class OrderGoodsSerializer(serializers.ModelSerializer):
 
 class OrderDetailSerializer(serializers.ModelSerializer):
     goods = OrderGoodsSerializer(many=True)
-    alipay_url = serializers.SerializerMethodField(read_only=True)
-
-    def get_alipay_url(self, obj):
-        alipay = AliPay(
-            appid="",
-            app_notify_url="http://127.0.0.1:8000/alipay/return/",
-            app_private_key_path=private_key_path,
-            alipay_public_key_path=ali_pub_key_path,  # 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,
-            debug=True,  # 默认False,
-            return_url="http://127.0.0.1:8000/alipay/return/"
-        )
-
-        url = alipay.direct_pay(
-            subject=obj.order_sn,
-            out_trade_no=obj.order_sn,
-            total_amount=obj.order_mount,
-        )
-        re_url = "https://openapi.alipaydev.com/gateway.do?{data}".format(data=url)
-
-        return re_url
-
-    class Meta:
-        model = OrderInfo
-        fields = "__all__"
+#     alipay_url = serializers.SerializerMethodField(read_only=True)
+#
+#     def get_alipay_url(self, obj):
+#         alipay = AliPay(
+#             appid="",
+#             app_notify_url="http://127.0.0.1:8000/alipay/return/",
+#             app_private_key_path=private_key_path,
+#             alipay_public_key_path=ali_pub_key_path,  # 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,
+#             debug=True,  # 默认False,
+#             return_url="http://127.0.0.1:8000/alipay/return/"
+#         )
+#
+#         url = alipay.direct_pay(
+#             subject=obj.order_sn,
+#             out_trade_no=obj.order_sn,
+#             total_amount=obj.order_mount,
+#         )
+#         re_url = "https://openapi.alipaydev.com/gateway.do?{data}".format(data=url)
+#
+#         return re_url
+#
 
     class Meta:
         model = OrderInfo
@@ -97,34 +94,13 @@ class OrderSerializer(serializers.ModelSerializer):
     trade_no = serializers.CharField(read_only=True)
     order_sn = serializers.CharField(read_only=True)
     pay_time = serializers.DateTimeField(read_only=True)
-    alipay_url = serializers.SerializerMethodField(read_only=True)
-
-    def get_alipay_url(self, obj):
-        alipay = AliPay(
-            appid="",
-            app_notify_url="http://127.0.0.1:8000/alipay/return/",
-            app_private_key_path=private_key_path,
-            alipay_public_key_path=ali_pub_key_path,  # 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,
-            debug=True,  # 默认False,
-            return_url="http://127.0.0.1:8000/alipay/return/"
-        )
-
-        url = alipay.direct_pay(
-            subject=obj.order_sn,
-            out_trade_no=obj.order_sn,
-            total_amount=obj.order_mount,
-        )
-        re_url = "https://openapi.alipaydev.com/gateway.do?{data}".format(data=url)
-
-        return re_url
 
     def generate_order_sn(self):
-        # 当前时间+userid+随机数
+        #当前时间+userid+随机数
         from random import Random
         random_ins = Random()
         order_sn = "{time_str}{userid}{ranstr}".format(time_str=time.strftime("%Y%m%d%H%M%S"),
-                                                       userid=self.context["request"].user.id,
-                                                       ranstr=random_ins.randint(10, 99))
+                                                       userid=self.context["request"].user.id,ranstr=random_ins.randint(10,99))
         return order_sn
 
     def validate(self, attrs):
@@ -134,5 +110,6 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderInfo
         fields = "__all__"
+
 
 
