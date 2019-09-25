@@ -28,7 +28,7 @@ SECRET_KEY = '^enzt4m+y*$=r-%g9n#(0v9r2x127!=37@iu-rk!4jaz596c2o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'users.UserProfile'
 
@@ -107,6 +107,16 @@ DATABASES = {
         'OPTIONS': {'init_command':'SET default_storage_engine=INNODB;'},
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME' : 'mxshop',
+#         'USER' : 'root',
+#         'PASSWORD' : '123456',
+#         'HOST' : '148.70.221.132',
+#         'OPTIONS': {'init_command':'SET default_storage_engine=INNODB;'},
+#     }
+# }
 
 
 # Password validation
@@ -160,6 +170,9 @@ JWT_AUTH = {
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR,'static'),
+)
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR,"media")
@@ -175,11 +188,11 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.UserRateThrottle'
     ),
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '2/minute',
-        'user': '3/minute'
+        'anon': '1000/day',
+        'user': '1000/day'
     }
 
-}
+ }
 
 #手机号码正则表达式
 REGEX_MOBILE = "^1[3578]\d{9}$|^147\d{8}$|^176\d{8}$"
@@ -187,6 +200,7 @@ REGEX_MOBILE = "^1[3578]\d{9}$|^147\d{8}$|^176\d{8}$"
 #云片网设置
 APIKEY = "460ad04a077a9c681214e4e17fbc1a25"
 
+#设置缓存时间
 REST_FRAMEWORK_EXTENSIONS = {
     'DEFAULT_CACHE_RESPONSE_TIMEOUT': 5
 }
@@ -195,18 +209,19 @@ REST_FRAMEWORK_EXTENSIONS = {
 private_key_path = os.path.join(BASE_DIR, 'apps/trade/keys/private_2048.txt')
 ali_pub_key_path = os.path.join(BASE_DIR, 'apps/trade/keys/alipay_key_2048.txt')
 
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
-    }
-}
+#配置redis缓存,使用之前要将本地redis服务启来
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": "redis://127.0.0.1:6379/1",
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#         }
+#     }
+# }
 
-SOCIAL_AUTH_WEIBO_KEY = 'appkey'
-SOCIAL_AUTH_WEIBO_SECRET = 'secrect'
+SOCIAL_AUTH_WEIBO_KEY = '484291611'
+SOCIAL_AUTH_WEIBO_SECRET = '33c0c3cbf9535a89a92b20c418579c3a'
 
 SOCIAL_AUTH_QQ_KEY = 'foobar'
 SOCIAL_AUTH_QQ_SECRET = 'bazqux'

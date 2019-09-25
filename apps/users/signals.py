@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-
+#以下注释代码解决序列化后密码没有加密的问题
 @receiver(post_save, sender=User)
 def create_user(sender, instance=None, created=False, **kwargs):
     if created:

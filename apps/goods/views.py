@@ -8,7 +8,7 @@ from rest_framework import viewsets
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework_extensions.cache.mixins import CacheResponseMixin
-from rest_framework.throttling import UserRateThrottle
+from rest_framework.throttling import UserRateThrottle,AnonRateThrottle #网络限速
 
 from .models import Goods,GoodsCategory,Banner,HotSearchWords
 from .filters import GoodsFilter
@@ -27,7 +27,7 @@ class GoodsListViewSet(CacheResponseMixin,mixins.ListModelMixin,mixins.RetrieveM
     """
     商品列表页,分页，搜索，过滤，排序
     """
-    throttle_classes = (UserRateThrottle, )
+    throttle_classes = (UserRateThrottle, AnonRateThrottle)#网络限速
     queryset = Goods.objects.all().order_by('id')
     serializer_class = GoodsSerializer
     pagination_class = GoodsPagination
@@ -76,5 +76,5 @@ class IndexCategoryViewset(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     首页商品分类数据
     """
-    queryset = GoodsCategory.objects.filter(is_tab=True, name__in=["生鲜食品", "酒水饮料"])
+    queryset = GoodsCategory.objects.filter(is_tab=True, name__in=["生鲜食品","粮油副食"])
     serializer_class = IndexCategorySerializer

@@ -105,10 +105,12 @@ class UserViewset(CreateModelMixin,RetrieveModelMixin,UpdateModelMixin,viewsets.
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        #以下代码是为了给前端传递token,注册成功后直接携带token直接登录
         user = self.perform_create(serializer)
         re_dict = serializer.data
         payload = jwt_payload_handler(user)
         re_dict["token"] = jwt_encode_handler(payload)
+        re_dict["name"] = user.name if user.name else user.username
 
         headers = self.get_success_headers(serializer.data)
         return Response(re_dict, status=status.HTTP_201_CREATED, headers=headers)

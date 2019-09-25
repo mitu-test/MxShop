@@ -55,23 +55,25 @@ goods_list = GoodsListViewSet.as_view({
     'get': 'list',
 })
 
-#from trade.views import AlipayView
+from trade.views import AlipayView
+from django.views.generic import TemplateView
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls',namespace="rest_framework")),
     url(r'^media/(?P<path>.*)$',serve,{"document_root":MEDIA_ROOT}),
     #商品列表页
     url(r'^',include(router.urls)),
+    url(r'^index/', TemplateView.as_view(template_name="index.html"), name="index"),
     url(r'^docs/', include_docs_urls(title="慕学生鲜")),#url一定不要$符号
     #drf自带的token认证模式
     url(r'^api-token-auth/', views.obtain_auth_token),
     #jwt的认证接口
     #url(r'^jwt_auth/', obtain_jwt_token),
     url(r'^login/$', obtain_jwt_token),
-    #url(r'^alipay/return/', AlipayView.as_view(),name="alipay"),
+    url(r'^alipay/return/', AlipayView.as_view(),name="alipay"),
 
     #第三方登录url
-    #url(r'', include('social_django.url',namespace='social')),
+    url(r'', include('social_django.urls',namespace='social')),
 
 
 ]

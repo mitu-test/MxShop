@@ -76,7 +76,7 @@ class IndexCategorySerializer(serializers.ModelSerializer):
 
     def get_ad_goods(self, obj):
         goods_json = {}
-        ad_goods = IndexAd.objects.filter(category_id=obj.id, )
+        ad_goods = IndexAd.objects.filter(category_id=obj.id)
         if ad_goods:
             good_ins = ad_goods[0].goods
             goods_json = GoodsSerializer(good_ins, many=False, context={'request': self.context['request']}).data
