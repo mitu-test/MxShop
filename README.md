@@ -51,7 +51,7 @@ python manage.py createsuperuser
 ```
 python manage.py runserver 127.0.0.0:8000
 ```
-8.cmd进入online-store目录下，运行启动前端Vue项目
+8.cmd进入online-store目录下，运行前端Vue项目
 -------
 ```
 cnpm run dev
