@@ -59,19 +59,25 @@ cnpm run dev
 9.访问127.0.0.1:8080进入生鲜电商平台主页
 -------
 首页：
+
 ![](https://github.com/PyGuojun/MxShop/blob/master/image/my_logo.png)
 
 商品分类：
+
 ![](https://github.com/PyGuojun/MxShop/blob/master/image/shop_category.png)
 
 加入购物车：
+
 ![](https://github.com/PyGuojun/MxShop/blob/master/image/shop_car.png)
 
 购物车：
+
 ![](https://github.com/PyGuojun/MxShop/blob/master/image/order.png)
 
 订单支付：
+
 ![](https://github.com/PyGuojun/MxShop/blob/master/image/pay.png)
 
 个人中心：
+
 ![](https://github.com/PyGuojun/MxShop/blob/master/image/personal.png)
